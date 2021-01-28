@@ -4,7 +4,7 @@ const multerConfig = require("./config/multer");
 
 const Post = require("./models/post");
 
-routes.get("/upload", async (req, res) => {
+routes.get("/files", async (req, res) => {
   const posts = await Post.find();
 
   return res.json(posts);
@@ -29,10 +29,18 @@ routes.post(
   }
 );
 
-routes.delete("/upload/:id", async (req, res) => {
+routes.delete("/delete/:id", async (req, res) => {
   const post = await Post.findById(req.params.id);
 
   await post.remove();
+
+  return res.send("Success!");
+});
+
+routes.delete("/deleteAll", async (req, res) => {
+  const post = Post.deleteMany({});
+
+  await post.deleteMany();
 
   return res.send("Success!");
 });

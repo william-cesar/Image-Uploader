@@ -26,4 +26,17 @@ PostSchema.pre("remove", function () {
   );
 });
 
+PostSchema.pre("deleteMany", function () {
+  promisify(fs.rmdirSync)(
+    path.resolve(__dirname, "..", "..", "tmp", "uploads"),
+    { recursive: true }
+  ).then(
+    promisify(fs.mkdirSync)(
+      path.resolve(__dirname, "..", "..", "tmp", "uploads"),
+      { recursive: true }
+    )
+  );
+  return null;
+});
+
 module.exports = mongoose.model("Post", PostSchema);
