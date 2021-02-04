@@ -6,8 +6,10 @@ const cors = require("cors");
 
 const app = express();
 
+//replace connectionParams with mongoDB connection params
+
 mongoose.connect(
-  connectionParams,
+  'connectionParams',
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
